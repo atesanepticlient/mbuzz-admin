@@ -16,7 +16,6 @@ import {
 import { signInAction } from "@/action/signin";
 import { toast } from "sonner";
 import { INTERNAL_SERVER_ERROR } from "@/error";
-import { seedAdmin } from "@/action/seed";
 
 const Login = () => {
   const [pending, startTr] = useTransition();
@@ -99,17 +98,7 @@ const Login = () => {
           </form>
         </Form>
 
-        <button
-          onClick={() => {
-            seedAdmin({
-              email: "epti060@gmail.com",
-              password: "123456",
-              name: "Ate San Epti",
-            });
-          }}
-        >
-          See
-        </button>
+        
       </div>
     </div>
   );
