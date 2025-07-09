@@ -125,7 +125,6 @@ export const PUT = async (req: Request) => {
         { error: "Deposit was not found" },
         { status: 404 }
       );
-
     const payload: Prisma.DepositUpdateInput = {};
     if (actionType == "approve") {
       payload.status = "APPROVED";
@@ -134,6 +133,7 @@ export const PUT = async (req: Request) => {
         where: { userId: deposit.user.id },
         data: {
           balance: { increment: deposit.amount },
+          turnOver: { increment: deposit.amount },
         },
       });
 

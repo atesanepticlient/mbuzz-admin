@@ -21,14 +21,17 @@ model User{
   phone             String @unique
   name              String @default("Pro User")
   password          String
+  withdrawPassword  String?
   playerId          String @unique
   facebook          String? @default("")
   isBanned          Boolean
   referId           String @unique
   wallet            Wallet?
+  apayDeposits      APayDeposit[]
   deposit           Deposit[]
   createdAt         DateTime @default(now())
   cardContainer     CardContainer?
+  apayWithdraws     APayWithdraw[]
   withdraws         Withdraw[]
   inviationBonus    InvitationBonus?
   invitedById       String?
@@ -162,7 +165,24 @@ enum DepositStatus {
   APPROVED
   REJECTED
 }
-
+model APayDeposit {
+  id                  String @id @default(cuid())
+  orderId             String
+  trxId               String
+  ps                  String
+  createdAt           DateTime @default(now())
+  userId              String
+  user                User @relation(fields: [userId], references: [id])
+}
+model APayWithdraw {
+  id                  String @id @default(cuid())
+  orderId             String
+  ps                  String
+  trxId               String
+  createdAt           DateTime @default(now())
+  userId              String
+  user                User @relation(fields: [userId], references: [id])
+}
 model Deposit {
   id                      String @id @default(cuid()) 
   amount                  Decimal
